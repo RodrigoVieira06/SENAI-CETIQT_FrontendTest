@@ -1,3 +1,8 @@
-.footer-content {
-  
+.footer-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding-block: 20px;
+  background-color: var(--accent-color);
 }

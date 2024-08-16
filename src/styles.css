@@ -1,0 +1,10 @@
+@import 'normalize.css';
+@import './assets/styles/colors.css';
+
+body {
+  font-family: 'Roboto', sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+

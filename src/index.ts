@@ -6,6 +6,6 @@ import './styles.css';
 const app = document.getElementById('app');
 if (app) {
   new Header(app);
-  new FormController(app);
+  // new FormController(app);
   new Footer(app);
 }

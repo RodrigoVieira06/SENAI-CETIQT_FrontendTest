@@ -6,11 +6,31 @@ export class FormValidator {
   public validateForm(): boolean {
     const formData = this.getFormData();
 
-    if (!formData.fullName || !formData.email || !formData.birthDate) {
+    if (
+      !formData.fullName ||
+      !formData.email ||
+      !formData.birthDate ||
+      !this.validateEmail(formData.email) ||
+      !this.validatePhone(formData.phone) ||
+      formData.interests.length === 0
+    ) {
       return false;
     }
 
-    if (!this.validateEmail(formData.email) || !this.validatePhone(formData.phone)) {
+    return true;
+  }
+
+  public hasData(): boolean {
+    const formData = this.getFormData();
+
+    if (
+      !formData.fullName &&
+      !formData.email &&
+      !formData.birthDate &&
+      !formData.email &&
+      !formData.phone &&
+      formData.interests.length === 0
+    ) {
       return false;
     }
 

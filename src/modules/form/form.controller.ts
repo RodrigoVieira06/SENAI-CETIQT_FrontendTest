@@ -24,6 +24,7 @@ export class FormController {
   }
 
   public addListeners(): void {
+    const form = document.getElementById('registration-form') as HTMLFormElement;
     const phoneInput = document.getElementById('phone') as HTMLInputElement;
 
     const inputs = document.querySelectorAll('#registration-form input, #registration-form select');
@@ -40,14 +41,30 @@ export class FormController {
     });
 
     phoneInput.addEventListener('input', this.applyPhoneMask);
+
+    this.attachFieldValidation(form);
   }
 
   public resetForm(): void {
+    this.clearErrors();
     const form = document.getElementById('registration-form') as HTMLFormElement;
     form.reset();
 
     this.toaster.show('Formulário foi redefinido.', ToasterEnum.INFO);
     this.updateButtonStates();
+  }
+
+  private submitForm(): void {
+    this.clearErrors();
+    const isValid = this.validator.validateForm();
+
+    if (isValid) {
+      this.toaster.show('Formulário enviado com sucesso!', ToasterEnum.SUCCESS);
+      this.resetForm();
+      return;
+    }
+
+    this.toaster.show('Por favor, preencha todos os campos obrigatórios.', ToasterEnum.ERROR);
   }
 
   private applyPhoneMask(event: Event): void {
@@ -62,20 +79,6 @@ export class FormController {
     input.value = formattedValue;
   }
 
-  private submitForm(): void {
-    const isValid = this.validator.validateForm();
-
-    if (isValid) {
-      this.toaster.show('Formulário enviado com sucesso!', ToasterEnum.SUCCESS);
-      window.history.pushState({}, '', '/success');
-      const popStateEvent = new PopStateEvent('popstate');
-      dispatchEvent(popStateEvent);
-      return;
-    }
-
-    this.toaster.show('Por favor, preencha todos os campos obrigatórios.', ToasterEnum.ERROR);
-  }
-
   private updateButtonStates(): void {
     const isValid = this.validator.validateForm();
     const hasData = this.validator.hasData();
@@ -85,5 +88,67 @@ export class FormController {
 
     submitButton.disabled = !isValid;
     resetButton.disabled = !hasData;
+  }
+
+  private attachFieldValidation(form: HTMLFormElement): void {
+    Array.from(form.elements).forEach((element: any) => {
+      if (element instanceof HTMLInputElement || element instanceof HTMLSelectElement) {
+        element.addEventListener('input', () => {
+          this.clearErrorsForElement(element);
+          if (!element.validity.valid) {
+            this.displayErrors({
+              [element.id]: this.getErrorMessage(element),
+            });
+          }
+        });
+
+        element.addEventListener('blur', () => {
+          this.clearErrorsForElement(element);
+          if (!element.validity.valid) {
+            this.displayErrors({
+              [element.id]: this.getErrorMessage(element),
+            });
+          }
+        });
+      }
+    });
+  }
+
+  private clearErrors(): void {
+    const errorMessages = document.querySelectorAll('.error-message');
+    errorMessages.forEach((msg) => msg.remove());
+  }
+
+  private clearErrorsForElement(element: HTMLElement): void {
+    const errorElement = element.parentElement?.querySelector('.error-message');
+    if (errorElement) {
+      errorElement.remove();
+    }
+  }
+
+  private displayErrors(errors: { [key: string]: string }): void {
+    Object.keys(errors).forEach((key) => {
+      const inputElement = document.getElementById(key) as HTMLInputElement;
+      const errorMessageElement = document.createElement('div');
+      errorMessageElement.className = 'error-message';
+      errorMessageElement.innerText = errors[key];
+      inputElement.parentElement?.appendChild(errorMessageElement);
+    });
+  }
+
+  public getErrorMessage(element: HTMLInputElement | HTMLSelectElement): string {
+    if (element.validity.valueMissing) {
+      return 'Este campo é obrigatório.';
+    }
+
+    if (element.validity.typeMismatch && element.type === 'email') {
+      return 'Por favor, insira um e-mail válido.';
+    }
+
+    if (element.validity.patternMismatch && element.type === 'tel') {
+      return 'Por favor, insira um telefone no formato (99) 99999-9999.';
+    }
+
+    return 'Valor inválido.';
   }
 }

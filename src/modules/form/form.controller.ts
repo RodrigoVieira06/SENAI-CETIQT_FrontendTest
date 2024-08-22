@@ -42,6 +42,14 @@ export class FormController {
     phoneInput.addEventListener('input', this.applyPhoneMask);
   }
 
+  public resetForm(): void {
+    const form = document.getElementById('registration-form') as HTMLFormElement;
+    form.reset();
+
+    this.toaster.show('Formulário foi redefinido.', ToasterEnum.INFO);
+    this.updateButtonStates();
+  }
+
   private applyPhoneMask(event: Event): void {
     const input = event.target as HTMLInputElement;
     let value = input.value.replace(/\D/g, '');
@@ -66,14 +74,6 @@ export class FormController {
     }
 
     this.toaster.show('Por favor, preencha todos os campos obrigatórios.', ToasterEnum.ERROR);
-  }
-
-  public resetForm(): void {
-    const form = document.getElementById('registration-form') as HTMLFormElement;
-    form.reset();
-
-    this.toaster.show('Formulário foi redefinido.', ToasterEnum.INFO);
-    this.updateButtonStates();
   }
 
   private updateButtonStates(): void {

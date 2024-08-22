@@ -14,7 +14,7 @@ export class Router {
     this.handleLocation();
   }
 
-  public async handleLocation(): Promise<void> {
+  public handleLocation(): void {
     const path = window.location.pathname;
     const routeAction = this.routes[path];
 

@@ -1,7 +1,0 @@
-#toaster-container {
-  max-width: 300px;
-}
-
-.toast {
-  transition: opacity 0.6s ease;
-}

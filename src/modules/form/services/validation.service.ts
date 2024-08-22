@@ -19,9 +19,9 @@ export class FormValidator {
 
   private getFormData(): FormData {
     return {
-      fullName: (document.getElementById('full-name') as HTMLInputElement)?.value,
+      fullName: (document.getElementById('fullName') as HTMLInputElement)?.value,
       email: (document.getElementById('email') as HTMLInputElement)?.value,
-      birthDate: (document.getElementById('birth-date') as HTMLInputElement)?.value,
+      birthDate: (document.getElementById('birthDate') as HTMLInputElement)?.value,
       gender: (document.getElementById('gender') as HTMLSelectElement)?.value,
       phone: (document.getElementById('phone') as HTMLInputElement)?.value,
       interests: Array.from(document.querySelectorAll('input[name="interests"]:checked')).map(

@@ -20,13 +20,16 @@ export class FormFacade {
   }
 
   public submitForm(): void {
-    if (this.validator.validateForm()) {
+    const isValid = this.validator.validateForm();
+
+    if (isValid) {
       this.toaster.show('Formulário enviado com sucesso!', ToasterEnum.SUCCESS);
       this.domManipulator.resetForm();
       this.updateButtonStates();
-    } else {
-      this.toaster.show('Por favor, preencha todos os campos obrigatórios.', ToasterEnum.ERROR);
+      return;
     }
+
+    this.toaster.show('Por favor, preencha todos os campos obrigatórios.', ToasterEnum.ERROR);
   }
 
   public resetForm(): void {
@@ -49,7 +52,7 @@ export class FormFacade {
     const submitButton = document.getElementById('submit-button') as HTMLButtonElement;
     const resetButton = document.getElementById('reset-button') as HTMLButtonElement;
 
-    // submitButton.disabled = !isValid;
-    // resetButton.disabled = !hasData;
+    submitButton.disabled = !isValid;
+    resetButton.disabled = !hasData;
   }
 }

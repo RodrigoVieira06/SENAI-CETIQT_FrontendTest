@@ -4,4 +4,7 @@
   --accent-color: #FFFFFF;
   --background-color: #f4f4f4;
   --text-color: #1d1d1d;
+
+  --shadow-color: rgba(0, 0, 0, 0.2);
+  --input-color: #F3F3F3;
 }

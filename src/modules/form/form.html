@@ -1,37 +1,54 @@
-<form id="registrationForm">
-  <div>
-    <label for="fullName">Nome Completo:</label>
-    <input type="text" id="fullName" name="fullName" required>
-  </div>
-  <div>
-    <label for="email">E-mail:</label>
-    <input type="email" id="email" name="email" required>
-  </div>
-  <div>
-    <label for="birthdate">Data de Nascimento:</label>
-    <input type="date" id="birthdate" name="birthdate" required>
-  </div>
-  <div>
-    <label for="gender">Gênero:</label>
-    <select id="gender" name="gender" required>
-      <option value="">Selecione</option>
-      <option value="Masculino">Masculino</option>
-      <option value="Feminino">Feminino</option>
-      <option value="Outro">Outro</option>
-    </select>
-  </div>
-  <div>
-    <label for="phone">Telefone:</label>
-    <input type="tel" id="phone" name="phone" pattern="\\(\\d{2}\\) \\d{5}-\\d{4}" required>
-  </div>
-  <div>
-    <label>Interesses:</label>
-    <label><input type="checkbox" name="interests" value="Desenvolvimento Web"> Desenvolvimento Web</label>
-    <label><input type="checkbox" name="interests" value="Design Gráfico"> Design Gráfico</label>
-    <label><input type="checkbox" name="interests" value="Marketing Digital"> Marketing Digital</label>
-  </div>
-  <div>
-    <button type="submit">Enviar</button>
-    <button type="reset">Limpar</button>
-  </div>
-</form>
+<main class="main-form-container">
+  <h1>Preencha o formulário abaixo</h1>
+  <form id="registration-form" class="form-container" novalidate>
+      <div class="form-group">
+          <label for="fullName">Nome Completo</label>
+          <input type="text" id="fullName" name="fullName" required>
+          <span class="error" id="errorName"></span>
+      </div>
+
+      <div class="form-group">
+          <label for="email">E-mail</label>
+          <input type="email" id="email" name="email" required>
+          <span class="error" id="errorEmail"></span>
+      </div>
+
+      <div class="form-group">
+          <label for="dob">Data de Nascimento</label>
+          <input type="date" id="dob" name="dob" required>
+          <span class="error" id="errorDob"></span>
+      </div>
+
+      <div class="form-group">
+          <label for="gender">Gênero</label>
+          <select id="gender" name="gender" required>
+              <option value="">Selecione</option>
+              <option value="Masculino">Masculino</option>
+              <option value="Feminino">Feminino</option>
+              <option value="Outro">Outro</option>
+          </select>
+          <span class="error" id="errorGender"></span>
+      </div>
+
+      <div class="form-group">
+          <label for="phone">Telefone</label>
+          <input type="tel" id="phone" name="phone" pattern="\(\d{2}\) \d{5}-\d{4}" required>
+          <span class="error" id="errorPhone"></span>
+      </div>
+
+      <div class="form-group-interests">
+          <label class="main-label">Interesses</label>
+          <div class="options">
+            <label><input type="checkbox" name="interests" value="Desenvolvimento Web"> Desenvolvimento Web</label>
+            <label><input type="checkbox" name="interests" value="Design Gráfico"> Design Gráfico</label>
+            <label><input type="checkbox" name="interests" value="Marketing Digital"> Marketing Digital</label>
+          </div>
+      </div>
+
+      <div class="buttons-group">
+          <button id="submit-button" type="button">Enviar</button>
+          <button id="reset-button" type="button">Limpar formulário</button>
+      </div>
+      <div id="successMessage"></div>
+  </form>
+</main>

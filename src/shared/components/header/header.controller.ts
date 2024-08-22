@@ -1,7 +1,7 @@
 import './header.css';
 import headerHtml from './header.html';
 
-export class Header {
+export class HeaderController {
   private headerElement: HTMLElement = document.createElement('header');
 
   constructor(private app: HTMLElement) {

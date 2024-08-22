@@ -1,29 +1,29 @@
 import './form.css';
+import { FormFacade } from './form.facade';
 import formHtml from './form.html';
-// import { validateForm } from '../validation/validation.service';
-// import { ToasterService } from '../toaster/toaster.service';
 
 export class FormController {
-  private formElement: HTMLElement = document.createElement('form');
+  private formElement: HTMLElement = document.createElement('registration-form');
+  private formFacade = new FormFacade();
 
   constructor(private app: HTMLElement) {
-    this.renderForm();
-    // this.attachListeners();
+    this.renderPage();
+    this.addListeners();
+
   }
 
-  private renderForm(): void {
+  public addListeners(): void {
+    document.getElementById('submit-button')?.addEventListener('click', () => {
+      this.formFacade.submitForm();
+    });
+
+    document.getElementById('reset-button')?.addEventListener('click', () => {
+      this.formFacade.resetForm();
+    });
+  }
+
+  private renderPage(): void {
     this.formElement.innerHTML = formHtml;
     this.app.appendChild(this.formElement);
   }
-
-  // private attachListeners() {
-  //   if (this.form) {
-  //     this.form.addEventListener('submit', (event) => {
-  //       event.preventDefault();
-  //       if (validateForm(this.form)) {
-  //         ToasterService.getInstance().showMessage('Formulário enviado com sucesso!');
-  //       }
-  //     });
-  //   }
-  // }
 }

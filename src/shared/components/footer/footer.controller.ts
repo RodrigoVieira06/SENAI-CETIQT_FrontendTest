@@ -1,7 +1,7 @@
 import './footer.css';
 import footerHtml from './footer.html';
 
-export class Footer {
+export class FooterController {
   private footerElement: HTMLElement = document.createElement('footer');
 
   constructor(private app: HTMLElement) {
